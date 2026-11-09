@@ -4,5 +4,27 @@ subtitle: "11/30/26"
 author: Nora Moss
 output: word_document
 ---
+```{r setup, include=TRUE, echo=TRUE, warning = FALSE, error=FALSE, message=FALSE}
 
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_knit$set(root.dir = "/Users/noramoss/Homework5/")
+```
+
+```{r Libraries, echo=FALSE, warning=FALSE, results='markup'}
+library(knitr)
+library(tidyverse)
+library(ggthemes)
+library(ggpmisc)
+library(broom)
+library(forcats)
+library(scales)
+```
+
+
+```{r Read in data}
+
+homicides <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/refs/heads/master/homicide-data.csv") %>% 
+  mutate(city_name = paste(city, state, sep = ", "))
+```
 
