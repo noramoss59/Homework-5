@@ -81,7 +81,12 @@ ggplot() +
                      "Black" = "orange", 
                      "White" = "blue", 
                      "Hispanic" = "darkgreen", 
-                     "other" = "pink"))
+                     "other" = "pink")) +
+  theme_dark() +
+  labs(
+    title = "Homicides in St. Louis, MO", 
+    caption = "Red line = Delmar Divide"
+  )
 
 ```
 
