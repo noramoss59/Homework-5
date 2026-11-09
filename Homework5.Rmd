@@ -34,7 +34,7 @@ homicides_stl <- read_csv("homicide-data.csv") %>%
   filter(city == "St. Louis", 
          !is.na(lat)) %>%
   st_as_sf(coords = c("lon", "lat"), 
-           crs = 3857)
+           crs = 4326)
 ```
 
 
@@ -43,10 +43,35 @@ homicides_stl <- homicides_stl %>%
   mutate(
     disposition = case_when(disposition %in% c("Closed without arrest", "Open/No arrest") ~ "unsolved", 
                             disposition %in% c("Closed by arrest") ~ "solved"))
+
+## placing races into four catagories 
+homicides_stl <- homicides_stl %>%  
+  mutate(
+    victim_race = case_when(victim_race %in% c("Asian", "Other") ~ "other", 
+                            victim_race %in% c("White") ~ "White", 
+                            victim_race %in% c("Black") ~ "Black", 
+                            victim_race %in% c("Hispanic") ~ "Hispanic"))
+
+# MO counties 
+stl_tracts <- tracts(state = "MO", county = "510", cb = TRUE, class = "sf") 
+
 ```
 
 
 
+```{r plot}
+ggplot() +
+  geom_sf(data = stl_tracts) + 
+  geom_sf(data = homicides_stl, aes(shape = disposition, color = victim_race)) +
+  scale_color_manual(name = "Status of Homicide Cases in St. Louis, MO", values = c(
+                    "unsolved" = 21, 
+                     "solved" = 18, 
+                     "Black" = "red", 
+                     "White" = "blue", 
+                     "Hispanic" = "darkgreen", 
+                     "other" = "grey"))
+
+```
 
 
 
