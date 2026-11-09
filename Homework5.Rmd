@@ -59,8 +59,11 @@ stl_tracts <- tracts(state = "MO", county = "510", cb = TRUE, class = "sf")
 stl_subdivisions <- county_subdivisions(state = "MO", county = "510", cb = TRUE, class = "sf")
 
 # Major roads 
-stl_roads <- roads(state = "MO", county = "510", class = "sf") %>% 
-  filter(MTFCC %in% c("S1100", "S1200"))
+stl_roads <- roads(state = "MO", county = "510", class = "sf")
+  
+delmar <- stl_roads %>%  filter(FULLNAME == "Delmar Blvd ")
+
+major_roads <- stl_roads %>% filter(MTFCC %in% c("S1100", "S1200"))
 
 ```
 
@@ -69,8 +72,9 @@ stl_roads <- roads(state = "MO", county = "510", class = "sf") %>%
 ```{r plot}
 ggplot() +
   geom_sf(data = stl_tracts) + 
-  geom_sf(data = stl_roads) +
-  geom_sf(data = homicides_stl, aes(color = victim_race)) +
+  geom_sf(data = major_roads) +
+  geom_sf(data = delmar, color = "orange") +
+  geom_sf(data = homicides_stl, aes(color = victim_race), alpha = 0.4) +
   facet_wrap(~ disposition, ncol = 2) +
   scale_color_manual(name = "Status of Homicide Cases in St. Louis, MO", 
                      values = c(
