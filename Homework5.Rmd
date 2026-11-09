@@ -52,8 +52,11 @@ homicides_stl <- homicides_stl %>%
                             victim_race %in% c("Black") ~ "Black", 
                             victim_race %in% c("Hispanic") ~ "Hispanic"))
 
-# MO counties 
+# STL tracts
 stl_tracts <- tracts(state = "MO", county = "510", cb = TRUE, class = "sf") 
+
+# STL subdivisions 
+stl_subdivisions <- county_subdivisions(state = "MO", county = "510", cb = TRUE, class = "sf")
 
 ```
 
