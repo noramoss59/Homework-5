@@ -76,7 +76,7 @@ ggplot() +
   geom_sf(data = delmar, color = "red", size = 2) +
   geom_sf(data = homicides_stl, aes(color = victim_race), alpha = 0.5) +
   facet_wrap(~ disposition, ncol = 2) +
-  scale_color_manual(name = "Status of Homicide Cases in St. Louis, MO", 
+  scale_color_manual(name = "Victim Race", 
                      values = c(
                      "Black" = "orange", 
                      "White" = "blue", 
@@ -84,7 +84,7 @@ ggplot() +
                      "other" = "pink")) +
   theme_dark() +
   labs(
-    title = "Homicides in St. Louis, MO", 
+    title = "Homicides in St. Louis, MO by Status", 
     caption = "Red line = Delmar Divide"
   )
 
