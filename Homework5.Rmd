@@ -19,12 +19,27 @@ library(ggpmisc)
 library(broom)
 library(forcats)
 library(scales)
+library(rlang) 
+library(tigris)
+library(forcats)
+library(sf)
+library(viridis)
 ```
 
 
 ```{r Read in data}
 
-homicides <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/refs/heads/master/homicide-data.csv") %>% 
-  mutate(city_name = paste(city, state, sep = ", "))
+homicides_stl <- read_csv("homicide-data.csv") %>% 
+  mutate(city_name = paste(city, state, sep = ", ")) %>% 
+  filter(city == "St. Louis")
 ```
+
+
+```{r}
+homicides_stl <- homicides_stl %>%  
+  mutate(
+    disposition = case_when(disposition %in% c("Closed without arrest", "Open/No arrest") ~ "unsolved", 
+                            disposition %in% c("Closed by arrest") ~ "solved"))
+```
+
 
