@@ -31,7 +31,10 @@ library(viridis)
 
 homicides_stl <- read_csv("homicide-data.csv") %>% 
   mutate(city_name = paste(city, state, sep = ", ")) %>% 
-  filter(city == "St. Louis")
+  filter(city == "St. Louis", 
+         !is.na(lat)) %>%
+  st_as_sf(coords = c("lon", "lat"), 
+           crs = 3857)
 ```
 
 
@@ -41,5 +44,10 @@ homicides_stl <- homicides_stl %>%
     disposition = case_when(disposition %in% c("Closed without arrest", "Open/No arrest") ~ "unsolved", 
                             disposition %in% c("Closed by arrest") ~ "solved"))
 ```
+
+
+
+
+
 
 
