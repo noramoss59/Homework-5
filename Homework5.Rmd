@@ -58,6 +58,9 @@ stl_tracts <- tracts(state = "MO", county = "510", cb = TRUE, class = "sf")
 # STL subdivisions 
 stl_subdivisions <- county_subdivisions(state = "MO", county = "510", cb = TRUE, class = "sf")
 
+# Major roads 
+stl_roads <- roads(state = "MO", county = "510", class = "sf")
+
 ```
 
 
